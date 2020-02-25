@@ -6,22 +6,58 @@ namespace OOP_Assignment_1
     {
         static void Main(string[] args)
         {
-          //  int userChoice = 0;
+            int userChoice = 0;
+            int vote = 0;
+            Boolean partic = true;
             Country[] europeCouncil = new Country[27];
             europeCouncil = generateEuCountries(europeCouncil);
-            foreach(Country x in europeCouncil)
+
+           while (true)
             {
-                Console.WriteLine(x.CountryName);
+                userChoice = Menu();
+                if (userChoice == 1)
+                {
+                    foreach (Country x in europeCouncil)
+                    {
+                        if (x.Participating == true)
+                        {
+                            Console.WriteLine("How will {0} be voting? 0 for abstain, 1 for yes, 2 for no", x.CountryName);
+                            vote = Convert.ToInt32(Console.ReadLine());
+                            x.CountryVote = vote;
+
+                        }
+                        else
+                            Console.WriteLine("{0} is not participating", x.CountryName);
+
+                    }
+                }
+                else if (userChoice == 2)
+                {
+                    foreach (Country x in europeCouncil)
+                    {
+                        Console.WriteLine("Will {0} be participating?", x.CountryName);
+                        partic = Convert.ToBoolean(Console.ReadLine());
+                        x.Participating = partic;
+                    }
+                   
+                }
+                else if (userChoice == 3)
+                {
+                    europeCouncil = generateEuCountries(europeCouncil);
+                    Console.WriteLine("Council has been reset");
+                }
+                else if (userChoice == 4)
+                {
+                    Console.WriteLine("WIP");
+                }
+                else if (userChoice == 5)
+                {
+                    Console.WriteLine("Thank you for using the program!");
+                    Environment.Exit(0);
+                }
+                 
             }
-
-           // while (true)
-            //{
-              //  userChoice = Menu();
-               // if (userChoice==1)
-               // {
-
-              //  }
-          //  }
+          
             
 
 
@@ -42,15 +78,17 @@ namespace OOP_Assignment_1
             Boolean x = true;
             while (x == true)
             {
+                Console.WriteLine("Welcome To The European Council!");
                 Console.WriteLine("Choose Option:");
                 Console.WriteLine("1. Vote On Agenda");
-                Console.WriteLine("2. Reset Votes");
-                Console.WriteLine("3. Display Results");
-                Console.WriteLine("4. Exit Program");
+                Console.WriteLine("2. Change Participants");
+                Console.WriteLine("3. Reset Votes");
+                Console.WriteLine("4. Display Results");
+                Console.WriteLine("5. Exit Program");
                 Console.WriteLine("Choice:");
                 userChoice = Convert.ToInt32(Console.ReadLine());
 
-                if (userChoice > 4 || userChoice < 1)
+                if (userChoice > 5 || userChoice < 1)
                 {
                     Console.WriteLine("Please use a valid input");
                 }
@@ -128,12 +166,29 @@ namespace OOP_Assignment_1
         public bool Participating
         {
             get { return _participating; }
-            set { _participating = value; }
+            set {
+
+                if (value == true || value == false)
+                {
+                    _participating = value;
+                }
+                else
+                    Console.WriteLine("Participating can only be true or false");
+                }
         }
         public int CountryVote
         {
             get { return _CountryVote; }
-            set { _CountryVote = value; }
+            set {
+
+                if (value >= 0 && value <= 2)
+                {
+                    _CountryVote = value;
+                }
+                else
+                    Console.WriteLine("Country Vote can only be equal to 0,1 or 2");
+            }
+                
         }
 
 
@@ -149,13 +204,7 @@ namespace OOP_Assignment_1
     }
 
 
-    class EUCouncil
-    {
-       // Country[] euCountries = new Country[27];
-       // euCountries[0] = new Country("Austria", (1.98f));
-       
-    }
-
+  
 }
 
     
